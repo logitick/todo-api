@@ -13,13 +13,13 @@
 # limitations under the License.
 
 # The binary to build (just the basename).
-BIN := myapp
+BIN := todo-api
 
 # This repo's root import path (under GOPATH).
-PKG := github.com/thockin/go-build-template
+PKG := github.com/logitick/todo-api
 
 # Where to push the docker image.
-REGISTRY ?= thockin
+REGISTRY ?= logitick
 
 # Which architecture to build - see $(ALL_ARCH) for options.
 ARCH ?= amd64
@@ -54,7 +54,7 @@ endif
 
 IMAGE := $(REGISTRY)/$(BIN)-$(ARCH)
 
-BUILD_IMAGE ?= golang:1.10-alpine
+BUILD_IMAGE ?= golang:1.11-alpine
 
 # If you want to build all binaries, see the 'all-build' rule.
 # If you want to build all containers, see the 'all-container' rule.

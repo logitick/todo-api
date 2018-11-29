@@ -16,8 +16,21 @@ limitations under the License.
 
 package main
 
-import "log"
+import (
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/logitick/todo-api/pkg/http/jsonapi"
+	"github.com/logitick/todo-api/pkg/listing"
+	"github.com/logitick/todo-api/pkg/storage/memory"
+)
 
 func main() {
-	log.Printf("hello, world!")
+	store := new(memory.Storage)
+	ls := listing.NewService(store)
+	router := jsonapi.Handler(ls)
+	fmt.Println("serving: http://localhost:8080")
+	log.Fatal(http.ListenAndServe(":8080", router))
+
 }
