@@ -21,6 +21,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/logitick/todo-api/pkg/adding"
 	"github.com/logitick/todo-api/pkg/http/jsonapi"
 	"github.com/logitick/todo-api/pkg/listing"
 	"github.com/logitick/todo-api/pkg/storage/memory"
@@ -29,7 +30,8 @@ import (
 func main() {
 	store := new(memory.Storage)
 	ls := listing.NewService(store)
-	router := jsonapi.Handler(ls)
+	as := adding.NewService(store)
+	router := jsonapi.Handler(ls, as)
 	fmt.Println("serving: http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 
