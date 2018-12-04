@@ -5,6 +5,7 @@ import (
 
 	"github.com/logitick/todo-api/pkg/adding"
 	"github.com/logitick/todo-api/pkg/listing"
+	"github.com/logitick/todo-api/pkg/updating"
 )
 
 type Storage struct {
@@ -46,4 +47,16 @@ func (s *Storage) AddTodo(t adding.Todo) (int, error) {
 	}
 	s.todo = append(s.todo, tt)
 	return id, nil
+}
+
+func (s *Storage) UpdateTodo(t updating.Todo) (updating.Todo, error) {
+	for i, st := range s.todo {
+		if t.ID == st.ID {
+			st.CompletedAt = t.CompletedAt
+			st.Title = t.Title
+			s.todo[i] = st
+			return t, nil
+		}
+	}
+	return t, fmt.Errorf("Not found: %v", t)
 }
