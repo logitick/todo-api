@@ -12,23 +12,13 @@ type Storage struct {
 }
 
 func (s *Storage) GetTodos() []listing.Todo {
-	// for i := 0; i < 100; i++ {
-	// 	s.todo = append(s.todo, Todo{
-	// 		ID:          i,
-	// 		Title:       fake.Sentence(),
-	// 		CompletedAt: time.Now(),
-	// 	})
-	// }
 	todos := make([]listing.Todo, len(s.todo))
-	for _, t := range s.todo {
-		todos = append(
-			todos,
-			listing.Todo{
-				ID:          t.ID,
-				Title:       t.Title,
-				CompletedAt: t.CompletedAt,
-			},
-		)
+	for i, t := range s.todo {
+		todos[i] = listing.Todo{
+			ID:          t.ID,
+			Title:       t.Title,
+			CompletedAt: t.CompletedAt,
+		}
 	}
 	return todos // ♪ todos hermanos ♪
 }
